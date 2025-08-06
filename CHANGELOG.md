@@ -7,6 +7,85 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2025-01-08
+
+### Added
+- **BGM機能**の実装
+  - AudioManagerクラスによるBGM制御
+  - BGMトグルボタン（🎵 BGM: ON/OFF）
+  - 音量スライダー（0-100%調整）
+  - ポーズ時のBGM一時停止機能
+  - localStorage による設定保存・復元
+  - ユーザーインタラクション後の自動BGM開始（ブラウザポリシー対応）
+- **背景テロップ機能**の実装
+  - カスタムテキストの横スクロール表示
+  - テロップトグルボタン（📺 Telop: ON/OFF）
+  - テーマ別テロップスタイリング
+  - ギャルテーマ専用色相変化アニメーション
+  - レスポンシブ対応（画面サイズ別フォントサイズ・速度調整）
+  - ゲーム中の自動透明度調整
+- **2playerモード専用操作ボタン**
+  - 各プレイヤー専用の画面上操作ボタン
+  - Player 1: W/A/S/D/Q ボタン
+  - Player 2: ↑/←/↓/→/Space ボタン
+  - VSモード専用ボタンスタイリング
+  - タッチ・クリック操作対応
+
+### Added - Audio & Visual Features
+- WAV形式BGMファイル対応（assets/audio/bgm.wav）
+- テーマ連動オーディオコントロールUI
+- 背景テロップのスムーズスクロールアニメーション
+- VSモード用コンパクトボタンデザイン
+
+### Fixed
+- **2playerモードレスポンシブデザイン**の修正
+  - デスクトップでの左右並びレイアウト実装
+  - player-sectionとvs-centerの適切な配置
+  - レスポンシブブレークポイントの最適化
+  - モバイルでの縦並びレイアウト改善
+- **2playerモード画面バグ**の修正
+  - 1playerモード画面が表示される問題を解決
+  - player-contentラッパーによる構造改善
+  - 各プレイヤーの操作ボタン配置修正
+
+### Changed
+- オーディオコントロールセクション名を「Audio & Effects」に変更
+- 2playerモードのレイアウト構造を大幅改善
+- VSモード用の独立したCSS設計
+
+### Improved
+- デスクトップでの2playerモード体験向上
+- モバイルデバイスでの2人プレイ操作性改善
+- BGMとテロップの統合制御システム
+- 設定の永続化による使いやすさ向上
+
+## [1.5.0] - 2025-01-08
+
+### Added
+- **GitHub リポジトリセットアップ**
+  - MIT ライセンス追加
+  - package.json によるプロジェクト情報管理
+  - .gitignore による適切なファイル除外
+  - docs/ フォルダ構造の整備
+- **包括的ドキュメント**
+  - CONTRIBUTING.md: 貢献ガイドライン
+  - DEPLOYMENT.md: デプロイメント手順
+  - 更新されたREADME.md with GitHub Pages リンク
+- **プロジェクト管理機能**
+  - GitHub Issues テンプレート対応
+  - リポジトリ情報の統一
+  - GitHub Pages 対応準備
+
+### Changed
+- リポジトリ名を「kiro-Tetris」に変更
+- 全ドキュメントのURL更新
+- プロジェクト構造の標準化
+
+### Technical
+- Git リポジトリの適切な初期化
+- GitHub との連携設定完了
+- 継続的インテグレーション準備
+
 ## [1.4.1] - 2025-01-08
 
 ### Fixed
