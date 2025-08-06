@@ -646,18 +646,19 @@ body[data-theme="gal"] #volume-display {
 body[data-theme="dark"] .telop-text {
     color: #ffffff;
     opacity: 0.15;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 body[data-theme="light"] .telop-text {
-    color: #333333;
-    opacity: 0.08;
+    color: #000000;
+    opacity: 0.12;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 body[data-theme="gal"] .telop-text {
-    color: #ff69b4;
-    opacity: 0.2;
-    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.8);
+    color: #000000;
+    opacity: 0.18;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6), 2px 2px 4px rgba(255, 255, 255, 0.8);
     animation: telopScrollGal 120s linear infinite;
 }
 
@@ -681,15 +682,88 @@ body[data-theme="gal"] .telop-text {
     }
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
+/* レスポンシブ対応 - 詳細なブレークポイント */
+/* 大画面デスクトップ (1400px以上) */
+@media (min-width: 1400px) {
     .telop-text {
-        font-size: 18px;
+        font-size: 28px;
+        animation-duration: 140s;
+    }
+}
+
+/* 中画面デスクトップ (1200px-1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .telop-text {
+        font-size: 26px;
+        animation-duration: 130s;
+    }
+}
+
+/* 小画面デスクトップ (992px-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .telop-text {
+        font-size: 22px;
+        animation-duration: 110s;
+    }
+}
+
+/* タブレット横向き (768px-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .telop-text {
+        font-size: 20px;
         animation-duration: 100s;
     }
 }
 
-@media (max-width: 480px) {
+/* タブレット縦向き (576px-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .telop-text {
+        font-size: 18px;
+        animation-duration: 90s;
+    }
+}
+
+/* スマートフォン大 (480px-575px) */
+@media (min-width: 480px) and (max-width: 575px) {
+    .telop-text {
+        font-size: 16px;
+        animation-duration: 85s;
+    }
+}
+
+/* スマートフォン中 (400px-479px) */
+@media (min-width: 400px) and (max-width: 479px) {
+    .telop-text {
+        font-size: 14px;
+        animation-duration: 80s;
+    }
+}
+
+/* スマートフォン小 (320px-399px) */
+@media (min-width: 320px) and (max-width: 399px) {
+    .telop-text {
+        font-size: 12px;
+        animation-duration: 75s;
+    }
+}
+
+/* 極小画面 (320px未満) */
+@media (max-width: 319px) {
+    .telop-text {
+        font-size: 10px;
+        animation-duration: 70s;
+    }
+}
+
+/* 横向き表示での調整 */
+@media (max-height: 600px) and (orientation: landscape) {
+    .telop-text {
+        font-size: 16px;
+        animation-duration: 90s;
+    }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
     .telop-text {
         font-size: 14px;
         animation-duration: 80s;
@@ -698,15 +772,15 @@ body[data-theme="gal"] .telop-text {
 
 /* ゲーム中は少し薄く */
 .game-container:not(.hidden) ~ .background-telop .telop-text {
-    opacity: 0.05;
+    opacity: 0.08;
 }
 
 body[data-theme="light"] .game-container:not(.hidden) ~ .background-telop .telop-text {
-    opacity: 0.03;
+    opacity: 0.06;
 }
 
 body[data-theme="gal"] .game-container:not(.hidden) ~ .background-telop .telop-text {
-    opacity: 0.08;
+    opacity: 0.10;
 }
 
 .score-board {
