@@ -25,9 +25,10 @@
             </select>
         </div>
         <div class="audio-controls">
-            <h3>Audio</h3>
+            <h3>Audio & Effects</h3>
             <div class="audio-buttons">
                 <button id="bgm-toggle" class="audio-btn">🎵 BGM: ON</button>
+                <button id="telop-toggle" class="audio-btn">📺 Telop: ON</button>
                 <input type="range" id="volume-slider" min="0" max="100" value="50" class="volume-slider">
                 <span id="volume-display">50%</span>
             </div>
@@ -36,64 +37,71 @@
 
     <!-- 背景テロップ -->
     <div class="background-telop">
-        <div class="telop-text" id="telop-text">どうしてすぐ知ってしまうの共振で苦しんでし罵倒Q.更新で降る隕石抹消可？悪くない興味ねえ救い派手感動常備ねえ薬食べBADQ.超酷えフル見た目暗号化？金による常識ねえ狂いっぱで乱闘放置ゲーする陰キャでバンドQ.送信で苦しいダメCancelは？草生えるどうしてすぐ見てしまうのどうしてすぐ言ってしまうのどうしてすぐ壊れちゃうかな（パパラパラパラ）近未来しか勝たんショッピンモールの現代コンピュー小窓(ショーウィンドー) ﾀﾋか加担モンティホールの経費でピンボールオイルマッサージ100分コース足湯付き柚子を添えてテテテテトテト テテテテトリスどうしてこんな目に に に興味がないこと本気じゃないもの全部後回しで知ってることは知らんぷり 私は終わってる恥ずかしい過去知ってるやつらの記憶消させて迷惑かけてごめんってば ねえ誰か助けて妄信で すぐ惹かれちゃうの狂信で すぐ引かれちゃうの知りたくない 知りたくない 知りたくない（タタラタラタラ）もう見ねえ すぐ引かれSAD常勤で狂いたてMAD行きたくない 行きたくない 生きたくないばーいばい臨時休業 洗濯ボールナイチンゲールの配信ゲーム名刺交換の名シーン借金ボウルでチンチロハイボール温泉旅行3泊4日食事付き早く行きてえテテテテトテトテテテテトリス共感性羞恥 恥 恥鬱とか躁とか忙しくて眠れないわ今日も誰か早く殴って気絶させてくれよ人生キャンセルキャンセル界隈ぼんやりとした不安私のせい 私が悪いよそうだよ興味が出ても本気でやっても全部空回りで知らないくせに嘘つき 私は終わってる恥ずかしい過去知ってるやつらの記憶消させて迷惑かけてごめんってばねえ誰か助けて迷惑かけてごめんってばねえ誰か許して</div>
+        <div class="telop-text" id="telop-text">
+            どうしてすぐ知ってしまうの共振で苦しんでし罵倒Q.更新で降る隕石抹消可？悪くない興味ねえ救い派手感動常備ねえ薬食べBADQ.超酷えフル見た目暗号化？金による常識ねえ狂いっぱで乱闘放置ゲーする陰キャでバンドQ.送信で苦しいダメCancelは？草生えるどうしてすぐ見てしまうのどうしてすぐ言ってしまうのどうしてすぐ壊れちゃうかな（パパラパラパラ）近未来しか勝たんショッピンモールの現代コンピュー小窓(ショーウィンドー)
+            ﾀﾋか加担モンティホールの経費でピンボールオイルマッサージ100分コース足湯付き柚子を添えてテテテテトテト テテテテトリスどうしてこんな目に に に興味がないこと本気じゃないもの全部後回しで知ってることは知らんぷり
+            私は終わってる恥ずかしい過去知ってるやつらの記憶消させて迷惑かけてごめんってば ねえ誰か助けて妄信で すぐ惹かれちゃうの狂信で すぐ引かれちゃうの知りたくない 知りたくない 知りたくない（タタラタラタラ）もう見ねえ
+            すぐ引かれSAD常勤で狂いたてMAD行きたくない 行きたくない 生きたくないばーいばい臨時休業
+            洗濯ボールナイチンゲールの配信ゲーム名刺交換の名シーン借金ボウルでチンチロハイボール温泉旅行3泊4日食事付き早く行きてえテテテテトテトテテテテトリス共感性羞恥 恥
+            恥鬱とか躁とか忙しくて眠れないわ今日も誰か早く殴って気絶させてくれよ人生キャンセルキャンセル界隈ぼんやりとした不安私のせい 私が悪いよそうだよ興味が出ても本気でやっても全部空回りで知らないくせに嘘つき
+            私は終わってる恥ずかしい過去知ってるやつらの記憶消させて迷惑かけてごめんってばねえ誰か助けて迷惑かけてごめんってばねえ誰か許して</div>
     </div>
 
     <!-- 一人プレイモード -->
-    <div class="game-container single-player">
-        <div class="game-info">
-            <h1>TETRIS</h1>
-            <div class="score-board">
-                <div class="score">
-                    <span>Score:</span>
-                    <span id="score">0</span>
-                </div>
-                <div class="level">
-                    <span>Level:</span>
-                    <span id="level">1</span>
-                </div>
-                <div class="lines">
-                    <span>Lines:</span>
-                    <span id="lines">0</span>
-                </div>
+    <div class="game-container single-player"></div>
+    <div class="game-info">
+        <h1>TETRIS</h1>
+        <div class="score-board">
+            <div class="score">
+                <span>Score:</span>
+                <span id="score">0</span>
             </div>
-            <div class="next-piece">
-                <h3>Next</h3>
-                <canvas id="next-canvas" width="120" height="120"></canvas>
+            <div class="level">
+                <span>Level:</span>
+                <span id="level">1</span>
             </div>
-            <div class="controls">
-                <h3>Controls</h3>
-                <p>← → : Move</p>
-                <p>↓ : Soft Drop</p>
-                <p>↑ : Rotate</p>
-                <p>Space : Hard Drop</p>
-                <p>P : Pause</p>
+            <div class="lines">
+                <span>Lines:</span>
+                <span id="lines">0</span>
             </div>
         </div>
-        <div class="game-board">
-            <canvas id="game-canvas" width="300" height="600"></canvas>
-            <div id="game-over" class="game-over hidden">
-                <h2>Game Over</h2>
-                <p>Final Score: <span id="final-score">0</span></p>
-                <button id="restart-btn">Play Again</button>
+        <div class="next-piece">
+            <h3>Next</h3>
+            <canvas id="next-canvas" width="120" height="120"></canvas>
+        </div>
+        <div class="controls">
+            <h3>Controls</h3>
+            <p>← → : Move</p>
+            <p>↓ : Soft Drop</p>
+            <p>↑ : Rotate</p>
+            <p>Space : Hard Drop</p>
+            <p>P : Pause</p>
+        </div>
+    </div>
+    <div class="game-board">
+        <canvas id="game-canvas" width="300" height="600"></canvas>
+        <div id="game-over" class="game-over hidden">
+            <h2>Game Over</h2>
+            <p>Final Score: <span id="final-score">0</span></p>
+            <button id="restart-btn">Play Again</button>
+        </div>
+    </div>
+    <div class="game-controls">
+        <div class="control-buttons">
+            <div class="control-row">
+                <button id="rotate-btn" class="control-btn">↻<br><span>Rotate</span></button>
+                <button id="pause-btn" class="control-btn">⏸<br><span>Pause</span></button>
+            </div>
+            <div class="control-row">
+                <button id="left-btn" class="control-btn">←<br><span>Left</span></button>
+                <button id="down-btn" class="control-btn">↓<br><span>Soft Drop</span></button>
+                <button id="right-btn" class="control-btn">→<br><span>Right</span></button>
+            </div>
+            <div class="control-row">
+                <button id="hard-drop-btn" class="control-btn hard-drop">⬇<br><span>Hard Drop</span></button>
             </div>
         </div>
-        <div class="game-controls">
-            <div class="control-buttons">
-                <div class="control-row">
-                    <button id="rotate-btn" class="control-btn">↻<br><span>Rotate</span></button>
-                    <button id="pause-btn" class="control-btn">⏸<br><span>Pause</span></button>
-                </div>
-                <div class="control-row">
-                    <button id="left-btn" class="control-btn">←<br><span>Left</span></button>
-                    <button id="down-btn" class="control-btn">↓<br><span>Soft Drop</span></button>
-                    <button id="right-btn" class="control-btn">→<br><span>Right</span></button>
-                </div>
-                <div class="control-row">
-                    <button id="hard-drop-btn" class="control-btn hard-drop">⬇<br><span>Hard Drop</span></button>
-                </div>
-            </div>
-        </div>
+    </div>
     </div>
 
     <!-- 二人プレイモード -->

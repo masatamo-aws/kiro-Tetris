@@ -143,17 +143,27 @@ body[data-theme="gal"] .mode-btn.active {
     color: #333;
 }
 
-/* 二人プレイモード */
-.vs-mode {
-    max-width: 1400px;
+/* 二人プレイモード - 基本レイアウト */
+.game-container.vs-mode {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
     gap: 30px;
+    padding: 20px;
+    max-width: 1400px;
+    width: 100%;
+    flex-wrap: nowrap;
 }
 
 .player-section {
     display: flex;
+    flex-direction: row;
     gap: 15px;
     flex: 1;
     min-width: 300px;
+    max-width: 500px;
+    align-items: flex-start;
 }
 
 .player-info {
@@ -161,6 +171,12 @@ body[data-theme="gal"] .mode-btn.active {
     flex-direction: column;
     gap: 15px;
     min-width: 180px;
+    flex-shrink: 0;
+}
+
+.player-section .game-board {
+    position: relative;
+    flex-shrink: 0;
 }
 
 .player-info h2 {
@@ -188,6 +204,7 @@ body[data-theme="gal"] .player-info h2 {
     gap: 20px;
     min-width: 120px;
     padding: 20px;
+    flex-shrink: 0;
 }
 
 .vs-center h1 {
@@ -1234,8 +1251,59 @@ body[data-theme="gal"] .hard-drop {
     }
 }
 
-/* VSモード用レスポンシブデザイン */
-@media (max-width: 1200px) {
+/* VSモード レスポンシブデザイン */
+
+/* 大画面（1400px以上）での最適化 */
+@media (min-width: 1400px) {
+    .vs-mode {
+        gap: 50px;
+    }
+    
+    .player-section {
+        max-width: 600px;
+    }
+    
+    .vs-center {
+        min-width: 150px;
+        padding: 30px;
+    }
+}
+
+/* 中画面（1200px-1399px）での調整 */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .vs-mode {
+        gap: 40px;
+    }
+    
+    .player-section {
+        max-width: 450px;
+    }
+}
+
+/* タブレット横向き（992px-1199px）での調整 */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .vs-mode {
+        gap: 30px;
+    }
+    
+    .player-section {
+        max-width: 400px;
+        gap: 12px;
+    }
+    
+    .vs-center {
+        min-width: 100px;
+        padding: 15px;
+    }
+    
+    #game-canvas-p1, #game-canvas-p2 {
+        width: 220px;
+        height: 440px;
+    }
+}
+
+/* タブレット縦向き（768px-991px）で縦並びに変更 */
+@media (min-width: 768px) and (max-width: 991px) {
     .vs-mode {
         flex-direction: column;
         align-items: center;
@@ -1264,6 +1332,7 @@ body[data-theme="gal"] .hard-drop {
     }
 }
 
+/* スマートフォン・小画面（768px以下）での縦並び */
 @media (max-width: 768px) {
     .mode-selector {
         margin-bottom: 20px;
@@ -1285,7 +1354,9 @@ body[data-theme="gal"] .hard-drop {
         padding: 12px 24px;
     }
     
-    .vs-mode {
+    .game-container.vs-mode {
+        flex-direction: column;
+        align-items: center;
         gap: 15px;
         padding: 15px;
     }
