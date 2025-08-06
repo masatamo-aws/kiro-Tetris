@@ -582,6 +582,108 @@ body[data-theme="gal"] #volume-display {
     text-shadow: 0 0 5px #ff69b4;
 }
 
+/* 背景テロップ */
+.background-telop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.1;
+    font-family: 'Courier New', monospace;
+}
+
+.telop-text {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    animation: telopScroll 120s linear infinite;
+    top: 50%;
+    transform: translateY(-50%);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes telopScroll {
+    0% {
+        transform: translateX(100vw) translateY(-50%);
+    }
+    100% {
+        transform: translateX(-100%) translateY(-50%);
+    }
+}
+
+/* テーマ別のテロップスタイル */
+body[data-theme="dark"] .telop-text {
+    color: #ffffff;
+    opacity: 0.15;
+}
+
+body[data-theme="light"] .telop-text {
+    color: #333333;
+    opacity: 0.08;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+body[data-theme="gal"] .telop-text {
+    color: #ff69b4;
+    opacity: 0.2;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.8);
+    animation: telopScrollGal 120s linear infinite;
+}
+
+@keyframes telopScrollGal {
+    0% {
+        transform: translateX(100vw) translateY(-50%);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        filter: hue-rotate(270deg);
+    }
+    100% {
+        transform: translateX(-100%) translateY(-50%);
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .telop-text {
+        font-size: 18px;
+        animation-duration: 100s;
+    }
+}
+
+@media (max-width: 480px) {
+    .telop-text {
+        font-size: 14px;
+        animation-duration: 80s;
+    }
+}
+
+/* ゲーム中は少し薄く */
+.game-container:not(.hidden) ~ .background-telop .telop-text {
+    opacity: 0.05;
+}
+
+body[data-theme="light"] .game-container:not(.hidden) ~ .background-telop .telop-text {
+    opacity: 0.03;
+}
+
+body[data-theme="gal"] .game-container:not(.hidden) ~ .background-telop .telop-text {
+    opacity: 0.08;
+}
+
 .score-board {
     background: rgba(0, 0, 0, 0.4);
     padding: 15px;

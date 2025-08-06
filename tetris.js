@@ -546,6 +546,8 @@ class AudioManager {
         this.bgmAudio = document.getElementById('bgm-audio');
         this.bgmEnabled = true;
         this.volume = 0.5;
+        this.telopEnabled = true;
+        this.telopElement = document.querySelector('.background-telop');
         
         this.init();
     }
@@ -564,12 +566,18 @@ class AudioManager {
     
     bindEvents() {
         const bgmToggle = document.getElementById('bgm-toggle');
+        const telopToggle = document.getElementById('telop-toggle');
         const volumeSlider = document.getElementById('volume-slider');
         const volumeDisplay = document.getElementById('volume-display');
         
         // BGMトグルボタン
         bgmToggle.addEventListener('click', () => {
             this.toggleBGM();
+        });
+        
+        // テロップトグルボタン
+        telopToggle.addEventListener('click', () => {
+            this.toggleTelop();
         });
         
         // ボリュームスライダー
@@ -639,10 +647,28 @@ class AudioManager {
         }
     }
     
+    toggleTelop() {
+        this.telopEnabled = !this.telopEnabled;
+        const telopToggle = document.getElementById('telop-toggle');
+        
+        if (this.telopEnabled) {
+            telopToggle.textContent = '📺 Telop: ON';
+            telopToggle.classList.add('active');
+            this.telopElement.style.display = 'block';
+        } else {
+            telopToggle.textContent = '🚫 Telop: OFF';
+            telopToggle.classList.remove('active');
+            this.telopElement.style.display = 'none';
+        }
+        
+        this.saveSettings();
+    }
+    
     saveSettings() {
         const settings = {
             bgmEnabled: this.bgmEnabled,
-            volume: this.volume
+            volume: this.volume,
+            telopEnabled: this.telopEnabled
         };
         localStorage.setItem('tetris-audio-settings', JSON.stringify(settings));
     }
@@ -653,9 +679,11 @@ class AudioManager {
             const settings = JSON.parse(saved);
             this.bgmEnabled = settings.bgmEnabled !== undefined ? settings.bgmEnabled : true;
             this.volume = settings.volume !== undefined ? settings.volume : 0.5;
+            this.telopEnabled = settings.telopEnabled !== undefined ? settings.telopEnabled : true;
             
             // UIを更新
             const bgmToggle = document.getElementById('bgm-toggle');
+            const telopToggle = document.getElementById('telop-toggle');
             const volumeSlider = document.getElementById('volume-slider');
             const volumeDisplay = document.getElementById('volume-display');
             
@@ -665,6 +693,16 @@ class AudioManager {
             } else {
                 bgmToggle.textContent = '🔇 BGM: OFF';
                 bgmToggle.classList.remove('active');
+            }
+            
+            if (this.telopEnabled) {
+                telopToggle.textContent = '📺 Telop: ON';
+                telopToggle.classList.add('active');
+                this.telopElement.style.display = 'block';
+            } else {
+                telopToggle.textContent = '🚫 Telop: OFF';
+                telopToggle.classList.remove('active');
+                this.telopElement.style.display = 'none';
             }
             
             volumeSlider.value = this.volume * 100;
