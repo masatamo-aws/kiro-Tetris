@@ -1,13 +1,31 @@
 class Tetris {
-    constructor() {
-        this.canvas = document.getElementById('game-canvas');
+    constructor(mode = 'single', player = null) {
+        this.mode = mode;
+        this.player = player;
+        
+        // キャンバス要素の取得
+        if (mode === 'single') {
+            this.canvas = document.getElementById('game-canvas');
+            this.nextCanvas = document.getElementById('next-canvas');
+        } else {
+            // VSモードでは player1 -> p1, player2 -> p2 に変換
+            const playerId = player === 'player1' ? 'p1' : 'p2';
+            this.canvas = document.getElementById(`game-canvas-${playerId}`);
+            this.nextCanvas = document.getElementById(`next-canvas-${playerId}`);
+        }
+        
+        // キャンバス要素が見つからない場合のエラーハンドリング
+        if (!this.canvas || !this.nextCanvas) {
+            console.error(`Canvas elements not found for mode: ${mode}, player: ${player}`);
+            return;
+        }
+        
         this.ctx = this.canvas.getContext('2d');
-        this.nextCanvas = document.getElementById('next-canvas');
         this.nextCtx = this.nextCanvas.getContext('2d');
         
         this.BOARD_WIDTH = 10;
         this.BOARD_HEIGHT = 20;
-        this.BLOCK_SIZE = 30;
+        this.BLOCK_SIZE = mode === 'vs' ? 25 : 30;
         
         this.board = this.createBoard();
         this.score = 0;
@@ -21,16 +39,50 @@ class Tetris {
         this.gameOver = false;
         this.paused = false;
         
-        this.colors = [
-            '#000000', // 空
-            '#FF0000', // I
-            '#00FF00', // O
-            '#0000FF', // T
-            '#FFFF00', // S
-            '#FF00FF', // Z
-            '#00FFFF', // J
-            '#FFA500'  // L
-        ];
+        this.themes = {
+            dark: {
+                colors: [
+                    '#000000', // 空
+                    '#FF0000', // I
+                    '#00FF00', // O
+                    '#0000FF', // T
+                    '#FFFF00', // S
+                    '#FF00FF', // Z
+                    '#00FFFF', // J
+                    '#FFA500'  // L
+                ],
+                canvasBackground: '#000000'
+            },
+            light: {
+                colors: [
+                    '#f8f8f8', // 空
+                    '#dc143c', // I
+                    '#228b22', // O
+                    '#4169e1', // T
+                    '#ffd700', // S
+                    '#ff1493', // Z
+                    '#00ced1', // J
+                    '#ff8c00'  // L
+                ],
+                canvasBackground: '#f8f8f8'
+            },
+            gal: {
+                colors: [
+                    '#000000', // 空
+                    '#ff69b4', // I
+                    '#da70d6', // O
+                    '#ff1493', // T
+                    '#ffd700', // S
+                    '#ff00ff', // Z
+                    '#00ffff', // J
+                    '#ffb6c1'  // L
+                ],
+                canvasBackground: '#000000'
+            }
+        };
+        
+        this.currentTheme = 'dark';
+        this.colors = this.themes[this.currentTheme].colors;
         
         this.pieces = {
             I: [
@@ -194,9 +246,19 @@ class Tetris {
         }
     }
     
+    changeTheme(theme) {
+        this.currentTheme = theme;
+        this.colors = this.themes[theme].colors;
+        document.body.setAttribute('data-theme', theme);
+        
+        // キャンバスの背景色を更新
+        this.draw();
+        this.drawNextPiece();
+    }
+    
     draw() {
-        // ボードをクリア
-        this.ctx.fillStyle = '#000';
+        // ボードをクリア（テーマに応じた背景色）
+        this.ctx.fillStyle = this.themes[this.currentTheme].canvasBackground;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         // 配置済みのブロックを描画
@@ -244,7 +306,7 @@ class Tetris {
     }
     
     drawNextPiece() {
-        this.nextCtx.fillStyle = '#000';
+        this.nextCtx.fillStyle = this.themes[this.currentTheme].canvasBackground;
         this.nextCtx.fillRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
         
         if (this.nextPiece) {
@@ -276,14 +338,34 @@ class Tetris {
     }  
   
     updateDisplay() {
-        document.getElementById('score').textContent = this.score;
-        document.getElementById('level').textContent = this.level;
-        document.getElementById('lines').textContent = this.lines;
+        if (this.mode === 'single') {
+            document.getElementById('score').textContent = this.score;
+            document.getElementById('level').textContent = this.level;
+            document.getElementById('lines').textContent = this.lines;
+        } else {
+            // VSモードでは player1 -> p1, player2 -> p2 に変換
+            const playerId = this.player === 'player1' ? 'p1' : 'p2';
+            document.getElementById(`score-${playerId}`).textContent = this.score;
+            document.getElementById(`level-${playerId}`).textContent = this.level;
+            document.getElementById(`lines-${playerId}`).textContent = this.lines;
+        }
     }
     
     showGameOver() {
-        document.getElementById('final-score').textContent = this.score;
-        document.getElementById('game-over').classList.remove('hidden');
+        if (this.mode === 'single') {
+            document.getElementById('final-score').textContent = this.score;
+            document.getElementById('game-over').classList.remove('hidden');
+        } else {
+            // VSモードでは player1 -> p1, player2 -> p2 に変換
+            const playerId = this.player === 'player1' ? 'p1' : 'p2';
+            document.getElementById(`final-score-${playerId}`).textContent = this.score;
+            document.getElementById(`game-over-${playerId}`).classList.remove('hidden');
+            
+            // GameManagerに通知
+            if (window.gameManager) {
+                window.gameManager.onPlayerGameOver(this.player);
+            }
+        }
     }
     
     restart() {
@@ -296,51 +378,140 @@ class Tetris {
         this.gameOver = false;
         this.paused = false;
         
-        document.getElementById('game-over').classList.add('hidden');
+        if (this.mode === 'single') {
+            document.getElementById('game-over').classList.add('hidden');
+        } else {
+            document.getElementById(`game-over-${this.player}`).classList.add('hidden');
+        }
+        
         this.nextPiece = this.createPiece();
         this.spawnPiece();
         this.updateDisplay();
+    }
+    
+    togglePause() {
+        this.paused = !this.paused;
+    }
+    
+    forceGameOver() {
+        this.gameOver = true;
+    }
+    
+    destroy() {
+        this.gameOver = true;
+        // イベントリスナーのクリーンアップは省略（簡単のため）
     }
     
     bindEvents() {
         document.addEventListener('keydown', (e) => {
             if (this.gameOver) return;
             
-            switch(e.code) {
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    if (!this.paused) this.move(-1, 0);
-                    break;
-                case 'ArrowRight':
-                    e.preventDefault();
-                    if (!this.paused) this.move(1, 0);
-                    break;
-                case 'ArrowDown':
-                    e.preventDefault();
-                    if (!this.paused) {
-                        if (!this.move(0, 1)) {
-                            this.placePiece();
+            // 一人プレイモードまたはPlayer 2の操作
+            if (this.mode === 'single' || this.player === 'player2') {
+                switch(e.code) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        if (!this.paused) this.move(-1, 0);
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        if (!this.paused) this.move(1, 0);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (!this.paused) {
+                            if (!this.move(0, 1)) {
+                                this.placePiece();
+                            }
                         }
-                    }
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    if (!this.paused) this.rotate();
-                    break;
-                case 'Space':
-                    e.preventDefault();
-                    if (!this.paused) this.hardDrop();
-                    break;
-                case 'KeyP':
-                    e.preventDefault();
-                    this.paused = !this.paused;
-                    break;
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (!this.paused) this.rotate();
+                        break;
+                    case 'Space':
+                        e.preventDefault();
+                        if (!this.paused) this.hardDrop();
+                        break;
+                    case 'KeyP':
+                        e.preventDefault();
+                        if (this.mode === 'single') {
+                            this.paused = !this.paused;
+                        }
+                        break;
+                }
+            }
+            
+            // Player 1の操作（VSモード時のみ）
+            if (this.mode === 'vs' && this.player === 'player1') {
+                switch(e.code) {
+                    case 'KeyA':
+                        e.preventDefault();
+                        if (!this.paused) this.move(-1, 0);
+                        break;
+                    case 'KeyD':
+                        e.preventDefault();
+                        if (!this.paused) this.move(1, 0);
+                        break;
+                    case 'KeyS':
+                        e.preventDefault();
+                        if (!this.paused) {
+                            if (!this.move(0, 1)) {
+                                this.placePiece();
+                            }
+                        }
+                        break;
+                    case 'KeyW':
+                        e.preventDefault();
+                        if (!this.paused) this.rotate();
+                        break;
+                    case 'KeyQ':
+                        e.preventDefault();
+                        if (!this.paused) this.hardDrop();
+                        break;
+                }
             }
         });
         
         document.getElementById('restart-btn').addEventListener('click', () => {
             this.restart();
         });
+        
+        // テーマセレクターのイベントリスナー
+        document.getElementById('theme-select').addEventListener('change', (e) => {
+            this.changeTheme(e.target.value);
+        });
+        
+        // コントロールボタンのイベントリスナー（一人プレイモードのみ）
+        if (this.mode === 'single') {
+            document.getElementById('left-btn').addEventListener('click', () => {
+                if (!this.gameOver && !this.paused) this.move(-1, 0);
+            });
+            
+            document.getElementById('right-btn').addEventListener('click', () => {
+                if (!this.gameOver && !this.paused) this.move(1, 0);
+            });
+            
+            document.getElementById('down-btn').addEventListener('click', () => {
+                if (!this.gameOver && !this.paused) {
+                    if (!this.move(0, 1)) {
+                        this.placePiece();
+                    }
+                }
+            });
+            
+            document.getElementById('rotate-btn').addEventListener('click', () => {
+                if (!this.gameOver && !this.paused) this.rotate();
+            });
+            
+            document.getElementById('hard-drop-btn').addEventListener('click', () => {
+                if (!this.gameOver && !this.paused) this.hardDrop();
+            });
+            
+            document.getElementById('pause-btn').addEventListener('click', () => {
+                if (!this.gameOver) this.paused = !this.paused;
+            });
+        }
     }
     
     gameLoop(time = 0) {
@@ -360,5 +531,132 @@ class Tetris {
     }
 }
 
+// ゲーム管理クラス
+class GameManager {
+    constructor() {
+        this.currentMode = 'single';
+        this.singleGame = null;
+        this.vsGames = { player1: null, player2: null };
+        this.currentTheme = 'dark';
+        
+        this.init();
+    }
+    
+    init() {
+        this.bindModeEvents();
+        this.bindThemeEvents();
+        this.startSingleMode();
+    }
+    
+    bindModeEvents() {
+        document.getElementById('single-mode-btn').addEventListener('click', () => {
+            this.switchMode('single');
+        });
+        
+        document.getElementById('vs-mode-btn').addEventListener('click', () => {
+            this.switchMode('vs');
+        });
+    }
+    
+    bindThemeEvents() {
+        document.getElementById('theme-select').addEventListener('change', (e) => {
+            this.changeTheme(e.target.value);
+        });
+    }
+    
+    switchMode(mode) {
+        // モードボタンの状態更新
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`${mode === 'single' ? 'single' : 'vs'}-mode-btn`).classList.add('active');
+        
+        // ゲーム画面の切り替え
+        document.querySelector('.single-player').classList.toggle('hidden', mode !== 'single');
+        document.querySelector('.vs-mode').classList.toggle('hidden', mode !== 'vs');
+        
+        // 既存ゲームの停止
+        if (this.singleGame) {
+            this.singleGame.destroy();
+            this.singleGame = null;
+        }
+        if (this.vsGames.player1) {
+            this.vsGames.player1.destroy();
+            this.vsGames.player1 = null;
+        }
+        if (this.vsGames.player2) {
+            this.vsGames.player2.destroy();
+            this.vsGames.player2 = null;
+        }
+        
+        this.currentMode = mode;
+        
+        if (mode === 'single') {
+            this.startSingleMode();
+        } else {
+            this.startVsMode();
+        }
+    }
+    
+    startSingleMode() {
+        this.singleGame = new Tetris('single');
+    }
+    
+    startVsMode() {
+        this.vsGames.player1 = new Tetris('vs', 'player1');
+        this.vsGames.player2 = new Tetris('vs', 'player2');
+        
+        // VSモード専用のイベントバインド
+        this.bindVsEvents();
+    }
+    
+    bindVsEvents() {
+        document.getElementById('restart-vs-btn').addEventListener('click', () => {
+            this.restartVsMode();
+        });
+        
+        document.getElementById('pause-vs-btn').addEventListener('click', () => {
+            this.toggleVsPause();
+        });
+    }
+    
+    restartVsMode() {
+        if (this.vsGames.player1) this.vsGames.player1.restart();
+        if (this.vsGames.player2) this.vsGames.player2.restart();
+        document.getElementById('winner-display').classList.add('hidden');
+    }
+    
+    toggleVsPause() {
+        if (this.vsGames.player1) this.vsGames.player1.togglePause();
+        if (this.vsGames.player2) this.vsGames.player2.togglePause();
+    }
+    
+    changeTheme(theme) {
+        this.currentTheme = theme;
+        document.body.setAttribute('data-theme', theme);
+        
+        if (this.singleGame) {
+            this.singleGame.changeTheme(theme);
+        }
+        if (this.vsGames.player1) {
+            this.vsGames.player1.changeTheme(theme);
+        }
+        if (this.vsGames.player2) {
+            this.vsGames.player2.changeTheme(theme);
+        }
+    }
+    
+    onPlayerGameOver(player) {
+        if (this.currentMode === 'vs') {
+            const winner = player === 'player1' ? 'Player 2' : 'Player 1';
+            document.getElementById('winner-text').textContent = `${winner} Wins!`;
+            document.getElementById('winner-display').classList.remove('hidden');
+            
+            // 両方のゲームを停止
+            if (this.vsGames.player1) this.vsGames.player1.forceGameOver();
+            if (this.vsGames.player2) this.vsGames.player2.forceGameOver();
+        }
+    }
+}
+
 // ゲーム開始
-const game = new Tetris();
+const gameManager = new GameManager();
+window.gameManager = gameManager;
