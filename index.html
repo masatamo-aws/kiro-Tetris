@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- ゲームモード選択 -->
     <div class="mode-selector">
@@ -21,6 +23,14 @@
                 <option value="light">ライト</option>
                 <option value="gal">ギャル</option>
             </select>
+        </div>
+        <div class="audio-controls">
+            <h3>Audio</h3>
+            <div class="audio-buttons">
+                <button id="bgm-toggle" class="audio-btn">🎵 BGM: ON</button>
+                <input type="range" id="volume-slider" min="0" max="100" value="50" class="volume-slider">
+                <span id="volume-display">50%</span>
+            </div>
         </div>
     </div>
 
@@ -120,7 +130,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="vs-center">
             <h1>VS</h1>
             <button id="restart-vs-btn" class="restart-btn">Restart Game</button>
@@ -129,7 +139,7 @@
                 <h2 id="winner-text">Player 1 Wins!</h2>
             </div>
         </div>
-        
+
         <div class="player-section player2">
             <div class="player-info">
                 <h2>Player 2</h2>
@@ -168,6 +178,13 @@
             </div>
         </div>
     </div>
+    <!-- Audio Elements -->
+    <audio id="bgm-audio" loop preload="auto">
+        <source src="assets/audio/bgm.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
     <script src="tetris.js"></script>
 </body>
+
 </html>
