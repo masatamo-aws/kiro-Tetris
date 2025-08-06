@@ -48,68 +48,68 @@
     </div>
 
     <!-- 一人プレイモード -->
-    <div class="game-container single-player"></div>
-    <div class="game-info">
-        <h1>TETRIS</h1>
-        <div class="score-board">
-            <div class="score">
-                <span>Score:</span>
-                <span id="score">0</span>
+    <div class="game-container single-player">
+        <div class="game-info">
+            <h1>TETRIS</h1>
+            <div class="score-board">
+                <div class="score">
+                    <span>Score:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="level">
+                    <span>Level:</span>
+                    <span id="level">1</span>
+                </div>
+                <div class="lines">
+                    <span>Lines:</span>
+                    <span id="lines">0</span>
+                </div>
             </div>
-            <div class="level">
-                <span>Level:</span>
-                <span id="level">1</span>
+            <div class="next-piece">
+                <h3>Next</h3>
+                <canvas id="next-canvas" width="120" height="120"></canvas>
             </div>
-            <div class="lines">
-                <span>Lines:</span>
-                <span id="lines">0</span>
-            </div>
-        </div>
-        <div class="next-piece">
-            <h3>Next</h3>
-            <canvas id="next-canvas" width="120" height="120"></canvas>
-        </div>
-        <div class="controls">
-            <h3>Controls</h3>
-            <p>← → : Move</p>
-            <p>↓ : Soft Drop</p>
-            <p>↑ : Rotate</p>
-            <p>Space : Hard Drop</p>
-            <p>P : Pause</p>
-        </div>
-    </div>
-    <div class="game-board">
-        <canvas id="game-canvas" width="300" height="600"></canvas>
-        <div id="game-over" class="game-over hidden">
-            <h2>Game Over</h2>
-            <p>Final Score: <span id="final-score">0</span></p>
-            <button id="restart-btn">Play Again</button>
-        </div>
-    </div>
-    <div class="game-controls">
-        <div class="control-buttons">
-            <div class="control-row">
-                <button id="rotate-btn" class="control-btn">↻<br><span>Rotate</span></button>
-                <button id="pause-btn" class="control-btn">⏸<br><span>Pause</span></button>
-            </div>
-            <div class="control-row">
-                <button id="left-btn" class="control-btn">←<br><span>Left</span></button>
-                <button id="down-btn" class="control-btn">↓<br><span>Soft Drop</span></button>
-                <button id="right-btn" class="control-btn">→<br><span>Right</span></button>
-            </div>
-            <div class="control-row">
-                <button id="hard-drop-btn" class="control-btn hard-drop">⬇<br><span>Hard Drop</span></button>
+            <div class="controls">
+                <h3>Controls</h3>
+                <p>← → : Move</p>
+                <p>↓ : Soft Drop</p>
+                <p>↑ : Rotate</p>
+                <p>Space : Hard Drop</p>
+                <p>P : Pause</p>
             </div>
         </div>
-    </div>
+        <div class="game-board">
+            <canvas id="game-canvas" width="300" height="600"></canvas>
+            <div id="game-over" class="game-over hidden">
+                <h2>Game Over</h2>
+                <p>Final Score: <span id="final-score">0</span></p>
+                <button id="restart-btn">Play Again</button>
+            </div>
+        </div>
+        <div class="game-controls">
+            <div class="control-buttons">
+                <div class="control-row">
+                    <button id="rotate-btn" class="control-btn">↻<br><span>Rotate</span></button>
+                    <button id="pause-btn" class="control-btn">⏸<br><span>Pause</span></button>
+                </div>
+                <div class="control-row">
+                    <button id="left-btn" class="control-btn">←<br><span>Left</span></button>
+                    <button id="down-btn" class="control-btn">↓<br><span>Soft Drop</span></button>
+                    <button id="right-btn" class="control-btn">→<br><span>Right</span></button>
+                </div>
+                <div class="control-row">
+                    <button id="hard-drop-btn" class="control-btn hard-drop">⬇<br><span>Hard Drop</span></button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- 二人プレイモード -->
     <div class="game-container vs-mode hidden">
         <div class="player-section player1">
             <div class="player-content">
-                <div class="player-info"></div>
-                <h2>Player 1</h2>
+                <div class="player-info">
+                    <h2>Player 1</h2>
                 <div class="score-board">
                     <div class="score">
                         <span>Score:</span>
@@ -143,21 +143,21 @@
                     <p>Final Score: <span id="final-score-p1">0</span></p>
                 </div>
             </div>
-        </div>
-        <div class="game-controls-vs"></div>
-        <div class="control-buttons-vs">
-            <div class="control-row">
-                <button id="rotate-btn-p1" class="control-btn-vs">W<br><span>Rotate</span></button>
-                <button id="hard-drop-btn-p1" class="control-btn-vs hard-drop">Q<br><span>Hard Drop</span></button>
             </div>
-            <div class="control-row">
-                <button id="left-btn-p1" class="control-btn-vs">A<br><span>Left</span></button>
-                <button id="down-btn-p1" class="control-btn-vs">S<br><span>Soft Drop</span></button>
-                <button id="right-btn-p1" class="control-btn-vs">D<br><span>Right</span></button>
+            <div class="game-controls-vs">
+                <div class="control-buttons-vs">
+                    <div class="control-row">
+                        <button id="rotate-btn-p1" class="control-btn-vs">W<br><span>Rotate</span></button>
+                        <button id="hard-drop-btn-p1" class="control-btn-vs hard-drop">Q<br><span>Hard Drop</span></button>
+                    </div>
+                    <div class="control-row">
+                        <button id="left-btn-p1" class="control-btn-vs">A<br><span>Left</span></button>
+                        <button id="down-btn-p1" class="control-btn-vs">S<br><span>Soft Drop</span></button>
+                        <button id="right-btn-p1" class="control-btn-vs">D<br><span>Right</span></button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
 
     <div class="vs-center">
         <h1>VS</h1>
@@ -168,10 +168,10 @@
         </div>
     </div>
 
-    <div class="player-section player2">
-        <div class="player-content">
-            <div class="player-info"></div>
-            <h2>Player 2</h2>
+        <div class="player-section player2">
+            <div class="player-content">
+                <div class="player-info">
+                    <h2>Player 2</h2>
             <div class="score-board">
                 <div class="score">
                     <span>Score:</span>
@@ -197,29 +197,29 @@
                 <p>↑ : Rotate</p>
                 <p>Space : Hard Drop</p>
             </div>
-        </div>
-        <div class="game-board">
-            <canvas id="game-canvas-p2" width="250" height="500"></canvas>
-            <div id="game-over-p2" class="game-over hidden">
-                <h2>Player 2<br>Game Over</h2>
-                <p>Final Score: <span id="final-score-p2">0</span></p>
+                </div>
+                <div class="game-board">
+                    <canvas id="game-canvas-p2" width="250" height="500"></canvas>
+                    <div id="game-over-p2" class="game-over hidden">
+                        <h2>Player 2<br>Game Over</h2>
+                        <p>Final Score: <span id="final-score-p2">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="game-controls-vs">
+                <div class="control-buttons-vs">
+                    <div class="control-row">
+                        <button id="rotate-btn-p2" class="control-btn-vs">↑<br><span>Rotate</span></button>
+                        <button id="hard-drop-btn-p2" class="control-btn-vs hard-drop">Space<br><span>Hard Drop</span></button>
+                    </div>
+                    <div class="control-row">
+                        <button id="left-btn-p2" class="control-btn-vs">←<br><span>Left</span></button>
+                        <button id="down-btn-p2" class="control-btn-vs">↓<br><span>Soft Drop</span></button>
+                        <button id="right-btn-p2" class="control-btn-vs">→<br><span>Right</span></button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="game-controls-vs"></div>
-    <div class="control-buttons-vs">
-        <div class="control-row">
-            <button id="rotate-btn-p2" class="control-btn-vs">↑<br><span>Rotate</span></button>
-            <button id="hard-drop-btn-p2" class="control-btn-vs hard-drop">Space<br><span>Hard Drop</span></button>
-        </div>
-        <div class="control-row">
-            <button id="left-btn-p2" class="control-btn-vs">←<br><span>Left</span></button>
-            <button id="down-btn-p2" class="control-btn-vs">↓<br><span>Soft Drop</span></button>
-            <button id="right-btn-p2" class="control-btn-vs">→<br><span>Right</span></button>
-        </div>
-    </div>
-    </div>
-    </div>
     </div>
     <!-- Audio Elements -->
     <audio id="bgm-audio" loop preload="auto">
