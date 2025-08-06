@@ -411,6 +411,37 @@ class Tetris {
         // イベントリスナーのクリーンアップは省略（簡単のため）
     }
     
+    bindVSControlEvents() {
+        if (this.mode !== 'vs') return;
+        
+        const playerId = this.player === 'player1' ? 'p1' : 'p2';
+        
+        // VSモード用ボタンイベント
+        document.getElementById(`left-btn-${playerId}`).addEventListener('click', () => {
+            if (!this.gameOver && !this.paused) this.move(-1, 0);
+        });
+        
+        document.getElementById(`right-btn-${playerId}`).addEventListener('click', () => {
+            if (!this.gameOver && !this.paused) this.move(1, 0);
+        });
+        
+        document.getElementById(`down-btn-${playerId}`).addEventListener('click', () => {
+            if (!this.gameOver && !this.paused) {
+                if (!this.move(0, 1)) {
+                    this.placePiece();
+                }
+            }
+        });
+        
+        document.getElementById(`rotate-btn-${playerId}`).addEventListener('click', () => {
+            if (!this.gameOver && !this.paused) this.rotate();
+        });
+        
+        document.getElementById(`hard-drop-btn-${playerId}`).addEventListener('click', () => {
+            if (!this.gameOver && !this.paused) this.hardDrop();
+        });
+    }
+    
     bindEvents() {
         document.addEventListener('keydown', (e) => {
             if (this.gameOver) return;
@@ -521,6 +552,9 @@ class Tetris {
                 if (!this.gameOver) this.paused = !this.paused;
             });
         }
+        
+        // VSモード用コントロールボタンのバインド
+        this.bindVSControlEvents();
     }
     
     gameLoop(time = 0) {
