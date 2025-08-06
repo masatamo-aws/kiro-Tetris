@@ -1,5 +1,5 @@
 {
-  "name": "tetris-game",
+  "name": "kiro-tetris",
   "version": "1.0.0",
   "description": "A classic Tetris game built with HTML5 Canvas and JavaScript featuring single-player and 2-player modes with multiple themes",
   "main": "index.html",
@@ -21,10 +21,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/tetris-game.git"
+    "url": "https://github.com/masatamo-aws/kiro-Tetris.git"
   },
-  "homepage": "https://yourusername.github.io/tetris-game",
+  "homepage": "https://masatamo-aws.github.io/kiro-Tetris",
   "bugs": {
-    "url": "https://github.com/yourusername/tetris-game/issues"
+    "url": "https://github.com/masatamo-aws/kiro-Tetris/issues"
   }
 }

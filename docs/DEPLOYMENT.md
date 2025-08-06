@@ -24,7 +24,7 @@ GitHub Pages provides free hosting for static websites directly from your reposi
    - Click "Save"
 
 3. **Access your game**
-   - Your game will be available at: `https://yourusername.github.io/repository-name`
+   - Your game will be available at: `https://masatamo-aws.github.io/kiro-Tetris`
    - It may take a few minutes to deploy
 
 ## Local Development Server
@@ -78,7 +78,7 @@ Then open `http://localhost:8000` in your browser.
 If you want to use a custom domain with GitHub Pages:
 
 1. Add a `CNAME` file to your repository root
-2. Put your domain name in the file (e.g., `tetris.yourdomain.com`)
+2. Put your domain name in the file (e.g., `kiro-tetris.yourdomain.com`)
 3. Configure your domain's DNS to point to GitHub Pages
 4. Enable HTTPS in repository settings
 

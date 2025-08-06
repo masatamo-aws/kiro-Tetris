@@ -65,3 +65,9 @@ Thank you for your interest in contributing to this Tetris game project!
 ## Questions?
 
 Feel free to open an issue for any questions about contributing!
+
+## Repository Information
+
+- **Repository**: https://github.com/masatamo-aws/kiro-Tetris
+- **Live Demo**: https://masatamo-aws.github.io/kiro-Tetris
+- **Issues**: https://github.com/masatamo-aws/kiro-Tetris/issues

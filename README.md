@@ -1,11 +1,11 @@
 # 🎮 Tetris Game
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-blue)](https://yourusername.github.io/tetris-game)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-blue)](https://masatamo-aws.github.io/kiro-Tetris)
 
 HTML5 Canvas と JavaScript で作られたクラシックなテトリスゲームです。
 
-## 🚀 [Live Demo](https://yourusername.github.io/tetris-game)
+## 🚀 [Live Demo](https://masatamo-aws.github.io/kiro-Tetris)
 
 ![Tetris Game Screenshot](https://via.placeholder.com/800x400/000000/FFFFFF?text=Tetris+Game+Screenshot)
 
@@ -147,4 +147,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-If you have any questions or issues, please [open an issue](https://github.com/yourusername/tetris-game/issues) on GitHub.
+If you have any questions or issues, please [open an issue](https://github.com/masatamo-aws/kiro-Tetris/issues) on GitHub.
