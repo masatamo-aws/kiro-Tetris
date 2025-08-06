@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2025-01-08
+
+### Fixed
+- **ゲーム画面重複表示問題の修正**
+  - 1playerモードで2画面表示される問題を解決
+  - 2playerモードで3画面表示される問題を解決
+  - HTML構造の階層エラーを修正
+  - 各要素を適切なコンテナ内に正しく配置
+
+### Improved
+- **HTML構造の最適化**
+  - 1playerモード: game-container内に全要素を統合
+  - 2playerモード: player-section構造の正規化
+  - player-contentとgame-controls-vsの適切な配置
+  - 開始・終了タグの整合性確保
+
+### Technical
+- HTML階層構造の完全な再構築
+- 各ゲームモードでの正確な画面数表示
+- レスポンシブデザインとの互換性維持
+
 ## [1.6.1] - 2025-01-08
 
 ### Fixed
