@@ -391,6 +391,15 @@ class Tetris {
     
     togglePause() {
         this.paused = !this.paused;
+        
+        // BGMの制御
+        if (window.gameManager && window.gameManager.audioManager) {
+            if (this.paused) {
+                window.gameManager.audioManager.pauseBGM();
+            } else {
+                window.gameManager.audioManager.resumeBGM();
+            }
+        }
     }
     
     forceGameOver() {
@@ -531,6 +540,140 @@ class Tetris {
     }
 }
 
+// オーディオ管理クラス
+class AudioManager {
+    constructor() {
+        this.bgmAudio = document.getElementById('bgm-audio');
+        this.bgmEnabled = true;
+        this.volume = 0.5;
+        
+        this.init();
+    }
+    
+    init() {
+        // BGMの初期設定
+        this.bgmAudio.volume = this.volume;
+        this.bgmAudio.loop = true;
+        
+        // イベントリスナーの設定
+        this.bindEvents();
+        
+        // ローカルストレージから設定を読み込み
+        this.loadSettings();
+    }
+    
+    bindEvents() {
+        const bgmToggle = document.getElementById('bgm-toggle');
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeDisplay = document.getElementById('volume-display');
+        
+        // BGMトグルボタン
+        bgmToggle.addEventListener('click', () => {
+            this.toggleBGM();
+        });
+        
+        // ボリュームスライダー
+        volumeSlider.addEventListener('input', (e) => {
+            this.setVolume(e.target.value / 100);
+            volumeDisplay.textContent = e.target.value + '%';
+        });
+        
+        // ユーザーインタラクション後にBGMを開始
+        document.addEventListener('click', () => {
+            this.startBGM();
+        }, { once: true });
+        
+        document.addEventListener('keydown', () => {
+            this.startBGM();
+        }, { once: true });
+    }
+    
+    toggleBGM() {
+        this.bgmEnabled = !this.bgmEnabled;
+        const bgmToggle = document.getElementById('bgm-toggle');
+        
+        if (this.bgmEnabled) {
+            bgmToggle.textContent = '🎵 BGM: ON';
+            bgmToggle.classList.add('active');
+            this.startBGM();
+        } else {
+            bgmToggle.textContent = '🔇 BGM: OFF';
+            bgmToggle.classList.remove('active');
+            this.stopBGM();
+        }
+        
+        this.saveSettings();
+    }
+    
+    setVolume(volume) {
+        this.volume = Math.max(0, Math.min(1, volume));
+        this.bgmAudio.volume = this.volume;
+        this.saveSettings();
+    }
+    
+    startBGM() {
+        if (this.bgmEnabled && this.bgmAudio.paused) {
+            this.bgmAudio.play().catch(error => {
+                console.log('BGM再生エラー:', error);
+            });
+        }
+    }
+    
+    stopBGM() {
+        if (!this.bgmAudio.paused) {
+            this.bgmAudio.pause();
+        }
+    }
+    
+    pauseBGM() {
+        if (!this.bgmAudio.paused) {
+            this.bgmAudio.pause();
+        }
+    }
+    
+    resumeBGM() {
+        if (this.bgmEnabled && this.bgmAudio.paused) {
+            this.bgmAudio.play().catch(error => {
+                console.log('BGM再生エラー:', error);
+            });
+        }
+    }
+    
+    saveSettings() {
+        const settings = {
+            bgmEnabled: this.bgmEnabled,
+            volume: this.volume
+        };
+        localStorage.setItem('tetris-audio-settings', JSON.stringify(settings));
+    }
+    
+    loadSettings() {
+        const saved = localStorage.getItem('tetris-audio-settings');
+        if (saved) {
+            const settings = JSON.parse(saved);
+            this.bgmEnabled = settings.bgmEnabled !== undefined ? settings.bgmEnabled : true;
+            this.volume = settings.volume !== undefined ? settings.volume : 0.5;
+            
+            // UIを更新
+            const bgmToggle = document.getElementById('bgm-toggle');
+            const volumeSlider = document.getElementById('volume-slider');
+            const volumeDisplay = document.getElementById('volume-display');
+            
+            if (this.bgmEnabled) {
+                bgmToggle.textContent = '🎵 BGM: ON';
+                bgmToggle.classList.add('active');
+            } else {
+                bgmToggle.textContent = '🔇 BGM: OFF';
+                bgmToggle.classList.remove('active');
+            }
+            
+            volumeSlider.value = this.volume * 100;
+            volumeDisplay.textContent = Math.round(this.volume * 100) + '%';
+            this.bgmAudio.volume = this.volume;
+        }
+    }
+}
+
 // ゲーム管理クラス
 class GameManager {
     constructor() {
@@ -538,6 +681,7 @@ class GameManager {
         this.singleGame = null;
         this.vsGames = { player1: null, player2: null };
         this.currentTheme = 'dark';
+        this.audioManager = null;
         
         this.init();
     }
@@ -545,6 +689,7 @@ class GameManager {
     init() {
         this.bindModeEvents();
         this.bindThemeEvents();
+        this.audioManager = new AudioManager();
         this.startSingleMode();
     }
     
@@ -627,6 +772,15 @@ class GameManager {
     toggleVsPause() {
         if (this.vsGames.player1) this.vsGames.player1.togglePause();
         if (this.vsGames.player2) this.vsGames.player2.togglePause();
+        
+        // BGMの制御（どちらかのプレイヤーの状態を確認）
+        if (this.audioManager && this.vsGames.player1) {
+            if (this.vsGames.player1.paused) {
+                this.audioManager.pauseBGM();
+            } else {
+                this.audioManager.resumeBGM();
+            }
+        }
     }
     
     changeTheme(theme) {

@@ -54,3 +54,6 @@ node_modules/
 # Temporary folders
 tmp/
 temp/
+
+# Keep assets folder for game resources
+!assets/
