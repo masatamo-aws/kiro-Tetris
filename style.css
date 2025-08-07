@@ -1,0 +1,1168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    transition: all 0.3s ease;
+    overflow-x: auto;
+}
+
+/* ダークテーマ（デフォルト） */
+body[data-theme="dark"] {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+}
+
+/* ライトテーマ */
+body[data-theme="light"] {
+    background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+    color: #333;
+}
+
+/* ギャルテーマ */
+body[data-theme="gal"] {
+    background: linear-gradient(135deg, #ff69b4, #ff1493, #da70d6);
+    color: white;
+    animation: sparkle 2s infinite alternate;
+}
+
+@keyframes sparkle {
+    0% { filter: brightness(1) saturate(1); }
+    100% { filter: brightness(1.2) saturate(1.3); }
+}
+
+/* 背景テロップ */
+.background-telop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.1;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    animation: telopScroll 120s linear infinite;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes telopScroll {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* テーマ別のテロップスタイル */
+body[data-theme="dark"] .background-telop {
+    color: #ffffff;
+    opacity: 0.15;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+body[data-theme="light"] .background-telop {
+    color: #000000;
+    opacity: 0.12;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+body[data-theme="gal"] .background-telop {
+    color: #000000;
+    opacity: 0.18;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6), 2px 2px 4px rgba(255, 255, 255, 0.8);
+    animation: telopScrollGal 120s linear infinite;
+}
+
+@keyframes telopScrollGal {
+    0% {
+        transform: translateX(100vw);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        filter: hue-rotate(270deg);
+    }
+    100% {
+        transform: translateX(-100%);
+        filter: hue-rotate(360deg);
+    }
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="light"] header h1 {
+    color: #4169e1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="gal"] header h1 {
+    color: #ffff00;
+    text-shadow: 0 0 10px #ff69b4, 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ff69b4, 2px 2px 4px rgba(0, 0, 0, 0.5); }
+    to { text-shadow: 0 0 20px #ff1493, 0 0 30px #da70d6, 2px 2px 4px rgba(0, 0, 0, 0.5); }
+}
+
+/* テーマセレクター */
+.theme-selector {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.theme-selector h3 {
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.theme-btn {
+    background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+    border: 2px solid #666;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.theme-btn:hover {
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    border-color: #888;
+    transform: translateY(-1px);
+}
+
+.theme-btn.active {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+}
+
+/* テーマ別のセレクター */
+body[data-theme="light"] .theme-selector {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+body[data-theme="light"] .theme-selector h3 {
+    color: #4169e1;
+}
+
+body[data-theme="light"] .theme-btn {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border-color: #999;
+    color: #333;
+}
+
+body[data-theme="light"] .theme-btn:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+    border-color: #777;
+}
+
+body[data-theme="light"] .theme-btn.active {
+    background: linear-gradient(145deg, #4169e1, #3a5bc7);
+    border-color: #2a4bb7;
+    color: white;
+}
+
+body[data-theme="gal"] .theme-selector {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.4), rgba(218, 112, 214, 0.4));
+    border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+body[data-theme="gal"] .theme-selector h3 {
+    color: #ffff00;
+    text-shadow: 0 0 5px #ff69b4;
+}
+
+body[data-theme="gal"] .theme-btn {
+    background: linear-gradient(145deg, #ff69b4, #e55aa0);
+    border-color: #ff1493;
+    color: white;
+}
+
+body[data-theme="gal"] .theme-btn:hover {
+    background: linear-gradient(145deg, #ff79c4, #f55ab0);
+    border-color: #ff2493;
+}
+
+body[data-theme="gal"] .theme-btn.active {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+}
+
+/* オーディオコントロール */
+.audio-controls {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.audio-controls h3 {
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+.audio-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.bgm-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.audio-btn {
+    background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+    border: 2px solid #666;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    width: 100%;
+}
+
+.audio-btn:hover {
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    border-color: #888;
+    transform: translateY(-1px);
+}
+
+.audio-btn.active {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+}
+
+.volume-slider {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #333;
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffd700;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffd700;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+#volumeDisplay {
+    font-size: 0.8em;
+    color: #ffd700;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+/* テーマ別のオーディオコントロール */
+body[data-theme="light"] .audio-controls {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+body[data-theme="light"] .audio-controls h3 {
+    color: #4169e1;
+}
+
+body[data-theme="light"] .audio-btn {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border-color: #999;
+    color: #333;
+}
+
+body[data-theme="light"] .audio-btn:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+    border-color: #777;
+}
+
+body[data-theme="light"] .audio-btn.active {
+    background: linear-gradient(145deg, #4169e1, #3a5bc7);
+    border-color: #2a4bb7;
+    color: white;
+}
+
+body[data-theme="light"] .volume-slider {
+    background: #ccc;
+}
+
+body[data-theme="light"] .volume-slider::-webkit-slider-thumb {
+    background: #4169e1;
+    border-color: #fff;
+}
+
+body[data-theme="light"] .volume-slider::-moz-range-thumb {
+    background: #4169e1;
+    border-color: #fff;
+}
+
+body[data-theme="light"] #volumeDisplay {
+    color: #4169e1;
+}
+
+body[data-theme="gal"] .audio-controls {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.4), rgba(218, 112, 214, 0.4));
+    border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+body[data-theme="gal"] .audio-controls h3 {
+    color: #ffff00;
+    text-shadow: 0 0 5px #ff69b4;
+}
+
+body[data-theme="gal"] .audio-btn {
+    background: linear-gradient(145deg, #ff69b4, #e55aa0);
+    border-color: #ff1493;
+    color: white;
+}
+
+body[data-theme="gal"] .audio-btn:hover {
+    background: linear-gradient(145deg, #ff79c4, #f55ab0);
+    border-color: #ff2493;
+}
+
+body[data-theme="gal"] .audio-btn.active {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+}
+
+body[data-theme="gal"] .volume-slider {
+    background: linear-gradient(45deg, #ff69b4, #da70d6);
+}
+
+body[data-theme="gal"] .volume-slider::-webkit-slider-thumb {
+    background: #ffd700;
+    border-color: #ff69b4;
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+body[data-theme="gal"] .volume-slider::-moz-range-thumb {
+    background: #ffd700;
+    border-color: #ff69b4;
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+body[data-theme="gal"] #volumeDisplay {
+    color: #ffff00;
+    text-shadow: 0 0 5px #ff69b4;
+}
+
+/* モードセレクター */
+.mode-selector {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.mode-btn {
+    background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+    border: 2px solid #666;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.mode-btn:hover {
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    border-color: #888;
+    transform: translateY(-2px);
+}
+
+.mode-btn.active {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+}
+
+body[data-theme="light"] .mode-btn {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border-color: #999;
+    color: #333;
+}
+
+body[data-theme="light"] .mode-btn:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+    border-color: #777;
+}
+
+body[data-theme="light"] .mode-btn.active {
+    background: linear-gradient(145deg, #4169e1, #3a5bc7);
+    border-color: #2a4bb7;
+    color: white;
+}
+
+body[data-theme="gal"] .mode-btn {
+    background: linear-gradient(145deg, #ff69b4, #e55aa0);
+    border-color: #ff1493;
+    color: white;
+}
+
+body[data-theme="gal"] .mode-btn:hover {
+    background: linear-gradient(145deg, #ff79c4, #f55ab0);
+    border-color: #ff2493;
+}
+
+body[data-theme="gal"] .mode-btn.active {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+}
+
+/* ゲームコンテナ */
+.game-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    max-width: 1200px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ダークテーマのコンテナ */
+body[data-theme="dark"] .game-container {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ライトテーマのコンテナ */
+body[data-theme="light"] .game-container {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ギャルテーマのコンテナ */
+body[data-theme="gal"] .game-container {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.3), rgba(218, 112, 214, 0.3));
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+    border: 2px solid rgba(255, 215, 0, 0.6);
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px;
+}
+
+.game-info h2 {
+    font-size: 2.5em;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    color: #ffd700;
+}
+
+body[data-theme="light"] .game-info h2 {
+    color: #4169e1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="gal"] .game-info h2 {
+    color: #ffff00;
+    text-shadow: 0 0 10px #ff69b4, 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.score-info {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.score-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+}
+
+/* テーマ別のスコア情報 */
+body[data-theme="light"] .score-info {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+body[data-theme="gal"] .score-info {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.4), rgba(218, 112, 214, 0.4));
+    border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+.next-piece {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.next-piece h3 {
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+/* テーマ別のnext-piece */
+body[data-theme="light"] .next-piece {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+body[data-theme="light"] .next-piece h3 {
+    color: #4169e1;
+}
+
+body[data-theme="gal"] .next-piece {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.4), rgba(218, 112, 214, 0.4));
+    border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+body[data-theme="gal"] .next-piece h3 {
+    color: #ffff00;
+    text-shadow: 0 0 5px #ff69b4;
+}
+
+#nextCanvas, #nextCanvas-p1, #nextCanvas-p2 {
+    border: 2px solid #444;
+    border-radius: 5px;
+    background: #000;
+    transition: all 0.3s ease;
+}
+
+/* テーマ別のキャンバス */
+body[data-theme="light"] #nextCanvas,
+body[data-theme="light"] #nextCanvas-p1,
+body[data-theme="light"] #nextCanvas-p2 {
+    border: 2px solid #4169e1;
+    background: #f8f8f8;
+}
+
+body[data-theme="gal"] #nextCanvas,
+body[data-theme="gal"] #nextCanvas-p1,
+body[data-theme="gal"] #nextCanvas-p2 {
+    border: 2px solid #ffd700;
+    background: #000;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+}
+
+.controls-info {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.controls-info h3 {
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+/* テーマ別のコントロール */
+body[data-theme="light"] .controls-info {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+body[data-theme="light"] .controls-info h3 {
+    color: #4169e1;
+}
+
+body[data-theme="gal"] .controls-info {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.4), rgba(218, 112, 214, 0.4));
+    border: 1px solid rgba(255, 215, 0, 0.5);
+}
+
+body[data-theme="gal"] .controls-info h3 {
+    color: #ffff00;
+    text-shadow: 0 0 5px #ff69b4;
+}
+
+.control-item {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.game-area {
+    position: relative;
+}
+
+#gameCanvas, #gameCanvas-p1, #gameCanvas-p2 {
+    border: 3px solid #ffd700;
+    border-radius: 10px;
+    background: #000;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* テーマ別のゲームキャンバス */
+body[data-theme="light"] #gameCanvas,
+body[data-theme="light"] #gameCanvas-p1,
+body[data-theme="light"] #gameCanvas-p2 {
+    border: 3px solid #4169e1;
+    background: #f8f8f8;
+    box-shadow: 0 0 20px rgba(65, 105, 225, 0.3);
+}
+
+body[data-theme="gal"] #gameCanvas,
+body[data-theme="gal"] #gameCanvas-p1,
+body[data-theme="gal"] #gameCanvas-p2 {
+    border: 3px solid #ffd700;
+    background: #000;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.6), 0 0 40px rgba(218, 112, 214, 0.4);
+}
+
+/* ゲームコントロールボタン */
+.game-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px;
+}
+
+.control-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.control-btn {
+    background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+    border: 2px solid #666;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 80px;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:hover {
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    border-color: #888;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(145deg, #3a3a3a, #1a1a1a);
+}
+
+.hard-drop-btn {
+    background: linear-gradient(145deg, #ff6b6b, #e55555);
+    border-color: #ff4444;
+    color: white;
+}
+
+.hard-drop-btn:hover {
+    background: linear-gradient(145deg, #ff7b7b, #f55555);
+    border-color: #ff5555;
+}
+
+.hard-drop-btn:active {
+    background: linear-gradient(145deg, #e55555, #d44444);
+}
+
+/* テーマ別のボタンスタイル */
+body[data-theme="light"] .control-btn {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border-color: #999;
+    color: #333;
+}
+
+body[data-theme="light"] .control-btn:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+    border-color: #777;
+}
+
+body[data-theme="light"] .hard-drop-btn {
+    background: linear-gradient(145deg, #4169e1, #3a5bc7);
+    border-color: #2a4bb7;
+    color: white;
+}
+
+body[data-theme="gal"] .control-btn {
+    background: linear-gradient(145deg, #ff69b4, #e55aa0);
+    border-color: #ff1493;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="gal"] .control-btn:hover {
+    background: linear-gradient(145deg, #ff79c4, #f55ab0);
+    border-color: #ff2493;
+    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.4);
+}
+
+body[data-theme="gal"] .hard-drop-btn {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+    text-shadow: none;
+}
+
+/* モーダル */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #ffd700;
+    color: white;
+}
+
+.modal-content h2 {
+    color: #ff4444;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.restart-btn {
+    background: #ffd700;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.restart-btn:hover {
+    background: #ffed4e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* VSモード */
+.vs-layout {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.player-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    align-items: center;
+}
+
+.player-content {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.vs-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-width: 120px;
+    padding: 20px;
+    flex-shrink: 0;
+}
+
+.vs-center h1 {
+    font-size: 3em;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transform: rotate(-10deg);
+}
+
+body[data-theme="light"] .vs-center h1 {
+    color: #4169e1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="gal"] .vs-center h1 {
+    color: #ffff00;
+    text-shadow: 0 0 10px #ff69b4, 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.vs-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vs-btn {
+    background: #ffd700;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.vs-btn:hover {
+    background: #ffed4e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.winner-display {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #ffd700;
+    margin-top: 20px;
+}
+
+.winner-display h2 {
+    color: #ffd700;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+/* VSモード用ゲームコントロールボタン */
+.game-controls-vs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.control-btn-vs {
+    background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+    border: 2px solid #666;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 70px;
+    user-select: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn-vs:hover {
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    border-color: #888;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.control-btn-vs:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(145deg, #3a3a3a, #1a1a1a);
+}
+
+.control-btn-vs.hard-drop-btn {
+    background: linear-gradient(145deg, #ff6b6b, #e55555);
+    border-color: #ff4444;
+    color: white;
+}
+
+.control-btn-vs.hard-drop-btn:hover {
+    background: linear-gradient(145deg, #ff7b7b, #f55555);
+    border-color: #ff5555;
+}
+
+.control-btn-vs.hard-drop-btn:active {
+    background: linear-gradient(145deg, #e55555, #d44444);
+}
+
+/* テーマ別のVSモードボタンスタイル */
+body[data-theme="light"] .control-btn-vs {
+    background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+    border-color: #999;
+    color: #333;
+}
+
+body[data-theme="light"] .control-btn-vs:hover {
+    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+    border-color: #777;
+}
+
+body[data-theme="light"] .control-btn-vs.hard-drop-btn {
+    background: linear-gradient(145deg, #4169e1, #3a5bc7);
+    border-color: #2a4bb7;
+    color: white;
+}
+
+body[data-theme="gal"] .control-btn-vs {
+    background: linear-gradient(145deg, #ff69b4, #e55aa0);
+    border-color: #ff1493;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="gal"] .control-btn-vs:hover {
+    background: linear-gradient(145deg, #ff79c4, #f55ab0);
+    border-color: #ff2493;
+    box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+}
+
+body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
+    background: linear-gradient(145deg, #ffd700, #e6c200);
+    border-color: #ffed4e;
+    color: #333;
+    text-shadow: none;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .theme-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .mode-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .game-info {
+        order: 3;
+        width: 100%;
+        max-width: 350px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .game-info h2 {
+        grid-column: 1 / -1;
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+    
+    .game-area {
+        order: 1;
+    }
+    
+    .game-controls {
+        order: 2;
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    #gameCanvas, #gameCanvas-p1, #gameCanvas-p2 {
+        width: 260px;
+        height: 520px;
+    }
+    
+    .vs-layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .player-section {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .player-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .vs-center {
+        width: 100%;
+        max-width: 300px;
+        padding: 15px;
+    }
+    
+    .vs-center h1 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    .mode-btn {
+        font-size: 1em;
+        padding: 12px 24px;
+    }
+    
+    .game-container {
+        gap: 12px;
+        padding: 12px;
+    }
+    
+    .game-info h2 {
+        font-size: 1.5em;
+    }
+    
+    #gameCanvas, #gameCanvas-p1, #gameCanvas-p2 {
+        width: 200px;
+        height: 400px;
+    }
+    
+    #nextCanvas, #nextCanvas-p1, #nextCanvas-p2 {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .control-btn {
+        min-width: 65px;
+        padding: 12px 14px;
+        font-size: 1em;
+    }
+    
+    .vs-center h1 {
+        font-size: 2em;
+    }
+    
+    .player-section {
+        max-width: 280px;
+    }
+}

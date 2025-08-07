@@ -1,0 +1,39 @@
+{
+  "name": "kiro-tetris",
+  "version": "1.6.2",
+  "description": "HTML5 Canvas と JavaScript で作られたクラシックなテトリスゲーム",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masatamo-aws/kiro-Tetris.git"
+  },
+  "keywords": [
+    "tetris",
+    "game",
+    "html5",
+    "canvas",
+    "javascript",
+    "puzzle",
+    "retro",
+    "classic"
+  ],
+  "author": "masatamo-aws",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/masatamo-aws/kiro-Tetris/issues"
+  },
+  "homepage": "https://masatamo-aws.github.io/kiro-Tetris",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 60",
+    "Firefox >= 55",
+    "Safari >= 12",
+    "Edge >= 79"
+  ]
+}
