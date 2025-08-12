@@ -5,9 +5,13 @@
 
 HTML5 Canvas と JavaScript で作られたクラシックなテトリス風ゲームです。
 
-## 🚀 [Live Demo](https://masatamo-aws.github.io/kiro-Tetris)
+## 📸 スクリーンショット
 
-![Tetris Game Screenshot](https://via.placeholder.com/800x400/000000/FFFFFF?text=Tetris+Game+Screenshot)
+### 🎮 1プレイヤーモード
+![1プレイヤーモード](https://raw.githubusercontent.com/masatamo-aws/kiro-tetris/main/assets/image/1player-mode.png)
+
+### 👥 2プレイヤーモード
+![2プレイヤーモード](https://raw.githubusercontent.com/masatamo-aws/kiro-tetris/main/assets/image/2player-mode.png)
 
 ## ✨ 特徴
 

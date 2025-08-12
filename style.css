@@ -40,76 +40,7 @@ body[data-theme="gal"] {
     100% { filter: brightness(1.2) saturate(1.3); }
 }
 
-/* 背景テロップ */
-.background-telop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0.1;
-    font-family: 'Courier New', monospace;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-    animation: telopScroll 120s linear infinite;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
 
-@keyframes telopScroll {
-    0% {
-        transform: translateX(100vw);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-/* テーマ別のテロップスタイル */
-body[data-theme="dark"] .background-telop {
-    color: #ffffff;
-    opacity: 0.15;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-body[data-theme="light"] .background-telop {
-    color: #000000;
-    opacity: 0.12;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-body[data-theme="gal"] .background-telop {
-    color: #000000;
-    opacity: 0.18;
-    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6), 2px 2px 4px rgba(255, 255, 255, 0.8);
-    animation: telopScrollGal 120s linear infinite;
-}
-
-@keyframes telopScrollGal {
-    0% {
-        transform: translateX(100vw);
-        filter: hue-rotate(0deg);
-    }
-    25% {
-        filter: hue-rotate(90deg);
-    }
-    50% {
-        filter: hue-rotate(180deg);
-    }
-    75% {
-        filter: hue-rotate(270deg);
-    }
-    100% {
-        transform: translateX(-100%);
-        filter: hue-rotate(360deg);
-    }
-}
 
 .container {
     max-width: 1200px;
@@ -508,8 +439,22 @@ body[data-theme="gal"] .mode-btn.active {
     transition: all 0.3s ease;
     max-width: 1200px;
     width: 100%;
-    flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
+}
+
+.game-sidebar {
+    flex: 0 0 200px;
+    min-width: 180px;
+}
+
+.game-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 500px;
 }
 
 /* ダークテーマのコンテナ */
@@ -534,8 +479,8 @@ body[data-theme="gal"] .game-container {
 .game-info {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    min-width: 200px;
+    gap: 15px;
+    width: 100%;
 }
 
 .game-info h2 {
@@ -707,14 +652,15 @@ body[data-theme="gal"] #gameCanvas-p2 {
 .game-controls {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    min-width: 200px;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .control-row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .control-btn {
@@ -854,39 +800,57 @@ body[data-theme="gal"] .hard-drop-btn {
 /* VSモード */
 .vs-layout {
     display: flex;
-    gap: 30px;
-    justify-content: center;
+    gap: 40px;
+    justify-content: space-between;
     align-items: flex-start;
-    flex-wrap: wrap;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .player-section {
     display: flex;
-    flex-direction: column;
     gap: 15px;
     flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-    align-items: center;
+    min-width: 320px;
+    max-width: 550px;
 }
 
-.player-content {
-    display: flex;
+/* Player 1: サイドバーが左側 */
+.player-section:first-child {
     flex-direction: row;
+    justify-content: flex-end;
+}
+
+/* Player 2: サイドバーが右側（左右対称） */
+.player-section-right {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.player-sidebar {
+    flex: 0 0 150px;
+    min-width: 140px;
+}
+
+.player-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 15px;
-    align-items: flex-start;
-    width: 100%;
 }
 
 .vs-center {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
-    min-width: 120px;
-    padding: 20px;
+    min-width: 160px;
+    padding: 30px 20px;
     flex-shrink: 0;
+    margin-top: 50px;
 }
 
 .vs-center h1 {
@@ -950,9 +914,15 @@ body[data-theme="gal"] .vs-center h1 {
 .game-controls-vs {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
-    margin-top: 15px;
+    max-width: 350px;
+}
+
+.game-controls-vs .control-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .control-btn-vs {
@@ -1038,6 +1008,43 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
 }
 
 /* レスポンシブデザイン */
+@media (max-width: 1400px) {
+    .vs-layout {
+        gap: 30px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .vs-layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        padding: 0 20px;
+    }
+    
+    .vs-center {
+        order: 2;
+        margin-top: 0;
+        min-width: 200px;
+    }
+    
+    .player-section:first-child {
+        order: 1;
+    }
+    
+    .player-section-right {
+        order: 3;
+    }
+    
+    /* モバイル表示では両方とも通常の順序に戻す */
+    .player-section,
+    .player-section-right {
+        flex-direction: column;
+        max-width: 400px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -1048,7 +1055,7 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
     }
     
     .theme-buttons {
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 5px;
     }
     
@@ -1064,10 +1071,20 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
         padding: 15px;
     }
     
-    .game-info {
-        order: 3;
+    .game-sidebar {
+        order: 1;
+        flex: none;
         width: 100%;
         max-width: 350px;
+    }
+    
+    .game-main {
+        order: 2;
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .game-info {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 15px;
@@ -1075,23 +1092,18 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
     
     .game-info h2 {
         grid-column: 1 / -1;
-        font-size: 2em;
+        font-size: 1.8em;
         margin-bottom: 10px;
     }
     
-    .game-area {
-        order: 1;
+    #gameCanvas {
+        width: 300px;
+        height: 600px;
     }
     
-    .game-controls {
-        order: 2;
-        width: 100%;
-        max-width: 350px;
-    }
-    
-    #gameCanvas, #gameCanvas-p1, #gameCanvas-p2 {
-        width: 260px;
-        height: 520px;
+    #gameCanvas-p1, #gameCanvas-p2 {
+        width: 250px;
+        height: 500px;
     }
     
     .vs-layout {
@@ -1100,22 +1112,30 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
         gap: 20px;
     }
     
-    .player-section {
+    .player-section,
+    .player-section-right {
         flex-direction: column;
-        align-items: center;
         width: 100%;
-        max-width: 300px;
+        max-width: 350px;
     }
     
-    .player-content {
-        flex-direction: column;
-        align-items: center;
+    .player-sidebar {
+        order: 1;
+        flex: none;
+        width: 100%;
+    }
+    
+    .player-main {
+        order: 2;
+        width: 100%;
     }
     
     .vs-center {
         width: 100%;
         max-width: 300px;
         padding: 15px;
+        margin-top: 0;
+        order: 2;
     }
     
     .vs-center h1 {
@@ -1130,7 +1150,7 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
     
     .mode-btn {
         font-size: 1em;
-        padding: 12px 24px;
+        padding: 12px 20px;
     }
     
     .game-container {
@@ -1142,20 +1162,30 @@ body[data-theme="gal"] .control-btn-vs.hard-drop-btn {
         font-size: 1.5em;
     }
     
-    #gameCanvas, #gameCanvas-p1, #gameCanvas-p2 {
+    .game-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    #gameCanvas {
+        width: 250px;
+        height: 500px;
+    }
+    
+    #gameCanvas-p1, #gameCanvas-p2 {
         width: 200px;
         height: 400px;
     }
     
     #nextCanvas, #nextCanvas-p1, #nextCanvas-p2 {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
     }
     
-    .control-btn {
-        min-width: 65px;
-        padding: 12px 14px;
-        font-size: 1em;
+    .control-btn, .control-btn-vs {
+        min-width: 60px;
+        padding: 10px 12px;
+        font-size: 0.9em;
     }
     
     .vs-center h1 {

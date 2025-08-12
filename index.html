@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-telop" id="backgroundTelop">
-        どうしてすぐ知ってしまうの共振で苦しんでし罵倒Q.更新で降る隕石抹消可?悪くない興味ねえ救い派手感動常備ねえ薬食べBADQ.超酷えフル見た目暗号化?金による常識ねえ狂いっぱで乱闘放置ゲーする陰キャでバンドQ.送信で苦しいダメCancelは?草生えるどうしてすぐ見てしまうのどうしてすぐ言ってしまうのどうしてすぐ壊れちゃうかな(パパラパラパラ)近未来しか勝たんショッピンモールの現代コンピュー小窓(ショーウィンドー) タヒか加担モンティホールの経費でピンボールオイルマッサージ100分コース足湯付き柚子を添えてテテテテトテト テテテテトリスどうしてこんな目に に に興味がないこと本気じゃないもの全部後回しで知ってることは知らんぷり 私は終わってる恥ずかしい過去知ってるやつらの記憶消させて迷惑かけてごめんってば ねえ誰か助けて妄信で すぐ惹かれちゃうの狂信で すぐ引かれちゃうの知りたくない 知りたくない 知りたくない(タタラタラタラ)もう見ねえ すぐ引かれSAD常勤で狂いたてMAD行きたくない 行きたくない 生きたくないばーいばい臨時休業 洗濯ボールナイチンゲールの配信ゲーム名刺交換の名シーン借金ボウルでチンチロハイボール温泉旅行3泊4日食事付き早く行きてえテテテテトテトテテテテトリス共感性羞恥 恥 恥鬱とか躁とか忙しくて眠れないわ今日も誰か早く殴って気絶させてくれよ人生キャンセルキャンセル界隈ぼんやりとした不安私のせい 私が悪いよそうだよ興味が出ても本気でやっても全部空回りで知らないくせに嘘つき 私は終わってる恥ずかしい過去知ってるやつらの記憶消させて迷惑かけてごめんってばねえ誰か助けて迷惑かけてごめんってばねえ誰か許して
-    </div>
+
 
     <div class="container">
         <header>
@@ -25,16 +23,15 @@
             </div>
 
             <div class="audio-controls">
-                <h3>Audio & Effects</h3>
+                <h3>Audio</h3>
                 <div class="audio-section">
                     <div class="bgm-controls">
-                        <button id="bgmToggle" class="audio-btn">🎵 BGM: OFF</button>
+                        <button id="bgmToggle" class="audio-btn active">🎵 BGM: ON</button>
                         <div class="volume-control">
                             <input type="range" id="volumeSlider" min="0" max="100" value="50" class="volume-slider">
                             <span id="volumeDisplay">50%</span>
                         </div>
                     </div>
-                    <button id="telopToggle" class="audio-btn">📺 Telop: ON</button>
                 </div>
             </div>
 
@@ -47,58 +44,58 @@
         <!-- 1 Player Mode -->
         <div id="singlePlayerMode" class="game-mode">
             <div class="game-container">
-                <div class="game-info">
-                    <h2>TETRIS</h2>
-                    <div class="score-info">
-                        <div class="score-item">
-                            <span>Score:</span>
-                            <span id="score">0</span>
+                <div class="game-sidebar">
+                    <div class="game-info">
+                        <h2>TETRIS</h2>
+                        <div class="score-info">
+                            <div class="score-item">
+                                <span>Score:</span>
+                                <span id="score">0</span>
+                            </div>
+                            <div class="score-item">
+                                <span>Level:</span>
+                                <span id="level">1</span>
+                            </div>
+                            <div class="score-item">
+                                <span>Lines:</span>
+                                <span id="lines">0</span>
+                            </div>
                         </div>
-                        <div class="score-item">
-                            <span>Level:</span>
-                            <span id="level">1</span>
+                        
+                        <div class="next-piece">
+                            <h3>Next</h3>
+                            <canvas id="nextCanvas" width="80" height="80"></canvas>
                         </div>
-                        <div class="score-item">
-                            <span>Lines:</span>
-                            <span id="lines">0</span>
+                        
+                        <div class="controls-info">
+                            <h3>Controls</h3>
+                            <div class="control-item">← → : Move</div>
+                            <div class="control-item">↓ : Soft Drop</div>
+                            <div class="control-item">↑ : Rotate</div>
+                            <div class="control-item">Space : Hard Drop</div>
+                            <div class="control-item">P : Pause</div>
                         </div>
-                    </div>
-                    
-                    <div class="next-piece">
-                        <h3>Next</h3>
-                        <canvas id="nextCanvas" width="80" height="80"></canvas>
-                    </div>
-                    
-                    <div class="controls-info">
-                        <h3>Controls</h3>
-                        <div class="control-item">← → : Move</div>
-                        <div class="control-item">↓ : Soft Drop</div>
-                        <div class="control-item">↑ : Rotate</div>
-                        <div class="control-item">Space : Hard Drop</div>
-                        <div class="control-item">P : Pause</div>
                     </div>
                 </div>
                 
-                <div class="game-area">
-                    <canvas id="gameCanvas" width="300" height="600"></canvas>
-                </div>
-                
-                <div class="game-controls">
-                    <div class="control-row">
-                        <button class="control-btn rotate-btn" data-action="rotate">↻</button>
+                <div class="game-main">
+                    <div class="game-area">
+                        <canvas id="gameCanvas" width="400" height="800"></canvas>
                     </div>
-                    <div class="control-row">
-                        <button class="control-btn move-btn" data-action="left">←</button>
-                        <button class="control-btn move-btn" data-action="right">→</button>
-                    </div>
-                    <div class="control-row">
-                        <button class="control-btn drop-btn" data-action="softDrop">↓</button>
-                    </div>
-                    <div class="control-row">
-                        <button class="control-btn hard-drop-btn" data-action="hardDrop">⬇</button>
-                    </div>
-                    <div class="control-row">
-                        <button class="control-btn pause-btn" data-action="pause">⏸</button>
+                    
+                    <div class="game-controls">
+                        <div class="control-row">
+                            <button class="control-btn rotate-btn" data-action="rotate">↻</button>
+                        </div>
+                        <div class="control-row">
+                            <button class="control-btn move-btn" data-action="left">←</button>
+                            <button class="control-btn drop-btn" data-action="softDrop">↓</button>
+                            <button class="control-btn move-btn" data-action="right">→</button>
+                        </div>
+                        <div class="control-row">
+                            <button class="control-btn hard-drop-btn" data-action="hardDrop">⬇</button>
+                            <button class="control-btn pause-btn" data-action="pause">⏸</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,7 +113,7 @@
         <div id="multiPlayerMode" class="game-mode" style="display: none;">
             <div class="vs-layout">
                 <div class="player-section" id="player1Section">
-                    <div class="player-content">
+                    <div class="player-sidebar">
                         <div class="game-info">
                             <h2>Player 1</h2>
                             <div class="score-info">
@@ -136,7 +133,7 @@
                             
                             <div class="next-piece">
                                 <h3>Next</h3>
-                                <canvas id="nextCanvas-p1" width="80" height="80"></canvas>
+                                <canvas id="nextCanvas-p1" width="60" height="60"></canvas>
                             </div>
                             
                             <div class="controls-info">
@@ -147,9 +144,11 @@
                                 <div class="control-item">Q : Hard Drop</div>
                             </div>
                         </div>
-                        
+                    </div>
+                    
+                    <div class="player-main">
                         <div class="game-area">
-                            <canvas id="gameCanvas-p1" width="300" height="600"></canvas>
+                            <canvas id="gameCanvas-p1" width="350" height="700"></canvas>
                         </div>
                         
                         <div class="game-controls-vs">
@@ -158,10 +157,8 @@
                             </div>
                             <div class="control-row">
                                 <button class="control-btn-vs move-btn" data-player="p1" data-action="left">A</button>
-                                <button class="control-btn-vs move-btn" data-player="p1" data-action="right">D</button>
-                            </div>
-                            <div class="control-row">
                                 <button class="control-btn-vs drop-btn" data-player="p1" data-action="softDrop">S</button>
+                                <button class="control-btn-vs move-btn" data-player="p1" data-action="right">D</button>
                             </div>
                             <div class="control-row">
                                 <button class="control-btn-vs hard-drop-btn" data-player="p1" data-action="hardDrop">Q</button>
@@ -188,8 +185,28 @@
                     </div>
                 </div>
 
-                <div class="player-section" id="player2Section">
-                    <div class="player-content">
+                <div class="player-section player-section-right" id="player2Section">
+                    <div class="player-main">
+                        <div class="game-area">
+                            <canvas id="gameCanvas-p2" width="350" height="700"></canvas>
+                        </div>
+                        
+                        <div class="game-controls-vs">
+                            <div class="control-row">
+                                <button class="control-btn-vs rotate-btn" data-player="p2" data-action="rotate">↑</button>
+                            </div>
+                            <div class="control-row">
+                                <button class="control-btn-vs move-btn" data-player="p2" data-action="left">←</button>
+                                <button class="control-btn-vs drop-btn" data-player="p2" data-action="softDrop">↓</button>
+                                <button class="control-btn-vs move-btn" data-player="p2" data-action="right">→</button>
+                            </div>
+                            <div class="control-row">
+                                <button class="control-btn-vs hard-drop-btn" data-player="p2" data-action="hardDrop">Space</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-sidebar">
                         <div class="game-info">
                             <h2>Player 2</h2>
                             <div class="score-info">
@@ -209,7 +226,7 @@
                             
                             <div class="next-piece">
                                 <h3>Next</h3>
-                                <canvas id="nextCanvas-p2" width="80" height="80"></canvas>
+                                <canvas id="nextCanvas-p2" width="60" height="60"></canvas>
                             </div>
                             
                             <div class="controls-info">
@@ -218,26 +235,6 @@
                                 <div class="control-item">↓ : Soft Drop</div>
                                 <div class="control-item">↑ : Rotate</div>
                                 <div class="control-item">Space : Hard Drop</div>
-                            </div>
-                        </div>
-                        
-                        <div class="game-area">
-                            <canvas id="gameCanvas-p2" width="300" height="600"></canvas>
-                        </div>
-                        
-                        <div class="game-controls-vs">
-                            <div class="control-row">
-                                <button class="control-btn-vs rotate-btn" data-player="p2" data-action="rotate">↑</button>
-                            </div>
-                            <div class="control-row">
-                                <button class="control-btn-vs move-btn" data-player="p2" data-action="left">←</button>
-                                <button class="control-btn-vs move-btn" data-player="p2" data-action="right">→</button>
-                            </div>
-                            <div class="control-row">
-                                <button class="control-btn-vs drop-btn" data-player="p2" data-action="softDrop">↓</button>
-                            </div>
-                            <div class="control-row">
-                                <button class="control-btn-vs hard-drop-btn" data-player="p2" data-action="hardDrop">Space</button>
                             </div>
                         </div>
                     </div>
@@ -253,6 +250,7 @@
         </div>
     </div>
 
+    <script src="bgm.js"></script>
     <script src="tetris.js"></script>
 </body>
 </html>
